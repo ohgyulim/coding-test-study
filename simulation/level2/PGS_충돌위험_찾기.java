@@ -1,5 +1,4 @@
-package Study.pg충돌위험찾기;
-
+package simulation.level2;
 
 class PGS_충돌위험_찾기 {
     public int solution(int[][] points, int[][] routes) {
