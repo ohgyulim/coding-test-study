@@ -4,29 +4,39 @@ import java.util.*;
 import java.util.*;
 
 class PGS_요격_시스템 {
+
     public int solution(int[][] targets) {
         int answer = 0;
 
-        // 종료 지점을 기준으로 오름차순 정렬
+        // 1. 오름차순
+        // Arrays.sort(targets, Comparator.comparingInt(a -> a[0]));
         Arrays.sort(targets, Comparator.comparingInt(a -> a[1]));
 
-        // 첫 번째 구간의 종료 지점을 기준으로 요격 미사일 배치
-        int[] f = targets[0];
-        answer++;
-
-        for (int i = 1; i < targets.length; i++) {
-            int[] s = targets[i];
-
-            // 현재 미사일이 이전 요격 미사일 범위를 벗어나는 경우에만 새로운 요격 미사일 추가
-            if (s[0] >= f[1]) {
-                f = s; // 새로운 미사일 범위로 업데이트
-                answer++;
-            }
-        }
+        // 2. 하나씩 꺼내서 삭제
+        answer = yogeuk(targets);
 
         return answer;
     }
+
+    private int yogeuk(int[][] targets){
+        int count = 0;
+
+        int[] f = targets[0];
+        count++;
+
+        for(int i=1;i<targets.length;i++){
+            int[] s = targets[i];
+
+            if(s[0]>=f[1]){
+                f=targets[i];
+                count++;
+            }
+        }
+
+        return count;
+    }
 }
+
 
 
 // 이전풀이
