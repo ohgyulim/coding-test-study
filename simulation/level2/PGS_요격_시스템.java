@@ -1,51 +1,81 @@
 import java.util.*;
 
-class PGS_요격_시스템 {
+//개선한 풀이
+import java.util.*;
 
+class PGS_요격_시스템 {
     public int solution(int[][] targets) {
         int answer = 0;
 
-        // 1. 정렬 , stack에 넣기
-        Stack<int[]> stack = sort(targets);
-        // 2. 하나씩 꺼내서 삭제
-        answer = yogeuk(stack);
+        // 종료 지점을 기준으로 오름차순 정렬
+        Arrays.sort(targets, Comparator.comparingInt(a -> a[1]));
+
+        // 첫 번째 구간의 종료 지점을 기준으로 요격 미사일 배치
+        int[] f = targets[0];
+        answer++;
+
+        for (int i = 1; i < targets.length; i++) {
+            int[] s = targets[i];
+
+            // 현재 미사일이 이전 요격 미사일 범위를 벗어나는 경우에만 새로운 요격 미사일 추가
+            if (s[0] >= f[1]) {
+                f = s; // 새로운 미사일 범위로 업데이트
+                answer++;
+            }
+        }
 
         return answer;
     }
-
-    private Stack<int[]> sort(int[][] targets) {
-        Arrays.sort(targets, Comparator.comparingInt(a -> a[0]));
-
-        Stack<int[]> stack = new Stack<>();
-        for (int i = 0; i < targets.length; i++) {
-            stack.push(targets[i]);
-        }
-
-        return stack;
-    }
-
-    private int yogeuk(Stack<int[]> stack){
-        int count = 0;
-
-        while(!stack.isEmpty()){
-            int[] top = stack.pop();
-            count++;
-            if(stack.isEmpty()){
-                return count;
-            }
-            int[] peek = stack.peek();
-            while(peek[0]<=top[0] && top[0]<peek[1]){
-                stack.pop();
-                if(stack.isEmpty()){
-                    return count;
-                }
-                peek = stack.peek();
-            }
-        }
-
-        return count;
-    }
 }
+
+
+// 이전풀이
+//class PGS_요격_시스템 {
+//
+//    public int solution(int[][] targets) {
+//        int answer = 0;
+//
+//        // 1. 정렬 , stack에 넣기
+//        Stack<int[]> stack = sort(targets);
+//        // 2. 하나씩 꺼내서 삭제
+//        answer = yogeuk(stack);
+//
+//        return answer;
+//    }
+//
+//    private Stack<int[]> sort(int[][] targets) {
+//        Arrays.sort(targets, Comparator.comparingInt(a -> a[0]));
+//
+//        Stack<int[]> stack = new Stack<>();
+//        for (int i = 0; i < targets.length; i++) {
+//            stack.push(targets[i]);
+//        }
+//
+//        return stack;
+//    }
+//
+//    private int yogeuk(Stack<int[]> stack){
+//        int count = 0;
+//
+//        while(!stack.isEmpty()){
+//            int[] top = stack.pop();
+//            count++;
+//            if(stack.isEmpty()){
+//                return count;
+//            }
+//            int[] peek = stack.peek();
+//            while(peek[0]<=top[0] && top[0]<peek[1]){
+//                stack.pop();
+//                if(stack.isEmpty()){
+//                    return count;
+//                }
+//                peek = stack.peek();
+//            }
+//        }
+//
+//        return count;
+//    }
+//}
 
 // 풀이
 // (int[a][b] targets에서 구간 시작 점을 a라 칭함.)
