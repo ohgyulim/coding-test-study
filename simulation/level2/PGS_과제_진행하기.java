@@ -14,11 +14,7 @@ class PGS_과제_진행하기 {
 
         Arrays.sort(newPlans, (a, b) -> Integer.compare(Integer.parseInt(a[1]), Integer.parseInt(b[1])));
 
-        for(String[] p : newPlans){
-            System.out.println(p[0]);
-        }
-
-        Integer now = 0;
+        int now = 0;
         Stack<String[]> stack = new Stack<>();
         int idx = 0;
         int answerIdx = 0;
