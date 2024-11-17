@@ -8,7 +8,7 @@ class Solution {
                 triangle.add(row);
             }else if(i == 1){
                 row.add(1);
-                row.add(1);
+                row.a dd(1);
                 triangle.add(row);
             }else{
                 for(int j = 0; j <= i ; j++){
