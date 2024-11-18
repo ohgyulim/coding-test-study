@@ -1,6 +1,6 @@
 package dfs_bfs.level2;
 
-class Solution {
+class PGS_광물캐기 {
     static String[] minerals;
 
     public int solution(int[] picks, String[] minerals) {
