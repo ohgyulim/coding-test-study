@@ -1,4 +1,5 @@
-//[241213] 실패
+//[241213] 🔍
+//[241216] 15분
 
 // XOR : 같으면 0 다르면 1
 
@@ -27,24 +28,23 @@ public class 테이블_해시_함수 {
         //     System.out.println(Arrays.toString(x));
         // }
 
-        int sumA = 0;
-        int sumB = 0;
+        int sum = 0;
 
-        for(int i=0; i<3; i++){
-            sumA += list.get(row_begin-1)[i] % row_begin;
+        for(int i=0; i<data[0].length; i++){
+            sum += list.get(row_begin-1)[i] % row_begin;
         }
 
-        for(int i=row_begin+1; i<=row_end; i++){
-            sumB = 0;
-            for(int j=0; j<3; j++){
-                sumB += list.get(i-1)[j] % i;
+        for(int i=row_begin; i<=row_end; i++){
+            sum = 0;
+            for(int j=0; j<data[0].length; j++){
+                sum += list.get(i-1)[j] % i;
             }
-            sumA = sumA ^ sumB;
+            answer = answer ^ sum;
         }
         // System.out.println(sumA);
         // System.out.println(sumB);
 
-        answer = sumA;   // XOR 연산 기법
+        // answer = sumA;   // XOR 연산 기법
         return answer;
     }
 }
