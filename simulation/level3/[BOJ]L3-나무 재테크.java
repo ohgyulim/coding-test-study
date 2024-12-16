@@ -34,6 +34,11 @@ public class Main {
             map[x][y].trees.add(age);
         }
 
+        //봄: 나이만큼 양분 -, 나이+1 같은 칸 내에서 나이가 어린 나무부터 양분을 먹음, 나이만큼 못먹으면 즉사
+        //여름: 봄에 죽은 나무 나이/2가 양분으로 추가
+        //가을: 나이가 5의 배수인 나무당 인접 8개 땅에 나이가 1인 나무가 생김
+        //겨울: A[r][c]만큼 모든 칸에 양분이 추가(입력)
+        //k년 반복
         for (int i = 0; i < k; i++) {
             doSpring(map);
             doSummer(map);
@@ -44,6 +49,7 @@ public class Main {
         System.out.println(countTrees(map));
     }
 
+    //봄 로직
     static void doSpring(Land[][] map) {
         for (Land[] row : map) {
             for (Land land : row) {
@@ -51,7 +57,7 @@ public class Main {
             }
         }
     }
-
+    //여름 로직
     static void doSummer(Land[][] map) {
         for (Land[] row : map) {
             for (Land land : row) {
@@ -59,6 +65,8 @@ public class Main {
             }
         }
     }
+
+    //가을 로직
     static void doAutumn(Land[][] map) {
         int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
         int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
@@ -88,6 +96,7 @@ public class Main {
         }
     }
 
+    //겨울 로직
     static void doWinter(Land[][] map, int[][] arrA) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
@@ -96,6 +105,7 @@ public class Main {
         }
     }
 
+    //최종 나무 숫자 카운트
     static int countTrees(Land[][] map) {
         int cnt = 0;
         for (Land[] row : map) {
