@@ -12,7 +12,7 @@ class Pair {
     }
 }
 
-public class BOJ_제출{
+public class BOJ_이차원 배열과 연산{
 
     static int r,c,k;
     static int[][] arr;
