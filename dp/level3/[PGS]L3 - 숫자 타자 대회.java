@@ -24,6 +24,8 @@ class Solution {
 
     public int solve(int ind, int L, int R) {
         //종료 조건
+        //전체 숫자까지 다 순회했을 때
+        //조회한 값이 -1이 아니라 구해진 값일 때
         if (ind == len) {
             return 0;
         }
