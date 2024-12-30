@@ -14,7 +14,6 @@ public class BOJ_서로_다른_부분_문자열의_개수 {
 		for (int index = 1; index <= str.length(); index++) {
 			recur(index, str.charAt(index - 1) + "");
 		}
-
 		System.out.println(set.size());
 	}
 
