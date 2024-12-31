@@ -3,7 +3,7 @@ package hash.level2;
 import java.util.*;
 import java.io.*;
 
-public class PGS_걸그룹마스터준석이 {
+public class BOJ_걸그룹마스터준석이 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] NM = br.readLine().split(" ");
