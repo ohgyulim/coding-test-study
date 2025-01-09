@@ -1,38 +1,44 @@
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int K = Integer.parseInt(st.nextToken());
-        int N = Integer.parseInt(st.nextToken());
-        long min = 0;
-        long max = 0;
-        long mid = 0;
-        int[] arr = new int[K];
-        for(int i = 0; i < K ; i++){
-            st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int[] arr = new int[n];
+        st = new StringTokenizer(br.readLine());
+        int max = 0;
+        for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
-            max = Math.max(max,arr[i]);
-            min = Math.min(min,arr[i]);
+            max = Math.max(max, arr[i]);
         }
-        max++;
-        while(min < max){
-            int count = 0;
-            mid = (min+max)/2;
-            for(int i = 0; i < K; i++){
-                count+=arr[i]/mid;
+
+        int m = Integer.parseInt(br.readLine());
+        int min = 0;
+        int answer = 0;
+
+        while (min <= max) {
+            int mid = (min + max) / 2;
+            long sum = 0;
+
+            for (int i = 0; i < n; i++) {
+                if (arr[i] > mid) {
+                    sum += mid;
+                } else {
+                    sum += arr[i];
+                }
             }
-            //더 잘게 잘라야함
-            if(count < N){
-                max = mid;
-            }else{
-                //더 크게 잘라야함
-                min = mid+1;
+
+            if (sum <= m) {
+                answer = mid;
+                min = mid + 1;
+            } else {
+                max = mid - 1;
             }
         }
-        System.out.println(min-1);
+
+        System.out.println(answer);
     }
 }
