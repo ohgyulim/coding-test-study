@@ -22,7 +22,7 @@ public class Main {
     }
 
     // 먹은 패티 계산
-    private long countPatty(int level, long x, long[] layer, long[] patty) {
+    private static long countPatty(int level, long x, long[] layer, long[] patty) {
         if (level == 0) {
             // 레벨-0 버거는 패티 하나
             return x == 1 ? 1 : 0;
