@@ -15,7 +15,6 @@ public class 두_큐_합_같게_만들기 {
             q2.add(queue2[i]);
             q2Sum += queue2[i];
         }
-
 //        System.out.println(q1Sum+" "+ q2Sum);
 
         int count = 0;
