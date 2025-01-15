@@ -1,7 +1,3 @@
-package 프로그래머스.Lv2;
-
-//[250115] 22분
-
 import java.util.*;
 
 public class 주차_요금_계산 {
