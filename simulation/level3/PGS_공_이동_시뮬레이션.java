@@ -38,7 +38,6 @@ public class 공_이동_시뮬레이션 {
             }
         }
         answer = (right - left + 1) * (bottom - top + 1);
-        // System.out.println(queryX+" "+queryY);
         return answer;
     }
 }
