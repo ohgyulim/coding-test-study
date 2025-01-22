@@ -25,8 +25,8 @@ int main() {
         int mid=(left+right)/2;
         int temp=(Y+mid) * 100 / (X+mid); //새로운 승률 계산
 
-        if(Z<temp) right=mid-1; //승률이 증가 -> mid--
-        else left=mid+1; //승률 증가 x -> mid --
+        if(Z<temp) right=mid-1; //승률이 증가
+        else left=mid+1; //승률 증가 x
     }
 
     cout << left;
