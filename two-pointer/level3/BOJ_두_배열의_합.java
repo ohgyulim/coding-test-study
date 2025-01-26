@@ -38,12 +38,12 @@ public class _2143_두_배열의_합 {
             arrB[i] = Integer.parseInt(st.nextToken());
         }
 
-        List<Integer> listA = new ArrayList<>();
-        List<Integer> listB = new ArrayList<>();
+        List<Long> listA = new ArrayList<>();
+        List<Long> listB = new ArrayList<>();
 
         // A의 부배열 합 구해놓기
         for(int i=0; i<arrA.length; i++) {
-            int sum = 0;
+            long sum = 0;
             for (int j = i; j < arrA.length; j++) {
                 sum += arrA[j];
                 listA.add(sum);
@@ -52,7 +52,7 @@ public class _2143_두_배열의_합 {
 
         // B의 부배열 합 구해놓기
         for(int i=0; i<arrB.length; i++){
-            int sum = 0;
+            long sum = 0;
             for(int j=i; j<arrB.length; j++){
                 sum += arrB[j];
                 listB.add(sum);
@@ -62,6 +62,50 @@ public class _2143_두_배열의_합 {
         Collections.sort(listB);
 //        System.out.println(listA);
 //        System.out.println(listB);
-        
+
+        int left = 0;
+        int right = listB.size()-1;
+        int result = 0;
+
+        while(true){
+            if(left>N && right<0){
+                break;
+            }
+
+            long sum = listA.get(left) + listB.get(right);
+            if(sum == T){
+                //left 중 동일 값 찾기
+                long tempSum = 0;
+                while(true){
+                    tempSum = listA.get(left) + listB.get(right);
+                    if(left>N || tempSum > T){
+                        break;
+                    }
+                    result++;
+                    left++;
+                }
+                if(left>N){
+                    left--;
+                }
+                //right 중 동일 값 찾기
+                while(true){
+                    tempSum = listA.get(left) + listB.get(right);
+                    if(right<0 || tempSum < T){
+                        break;
+                    }
+                    result++;
+                    right--;
+                }
+                if(right<0){
+                    right++;
+                }
+            }
+            else if(sum<T){
+                left++;
+            } else {
+                right--;
+            }
+        }
+        System.out.println(result);
     }
 }
