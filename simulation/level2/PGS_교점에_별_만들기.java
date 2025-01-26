@@ -5,11 +5,10 @@
 
 import java.util.*;
 
-class Solution {
+public class 교점에_별_만들기 {
     public String[] solution(int[][] line) {
         String[] answer = {};
-
-        List<Node> list = new ArrayList<>();
+        HashSet<Node> set= new HashSet<>(); // 교점 담아놓기. 교점이 겹칠 수도 있으니 Set으로 관리
 
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
@@ -49,16 +48,38 @@ class Solution {
                     y = (int)(bunjaY / bunmoY);
                 }
                 // System.out.println(x+" "+y);
+                set.add(new Node(x, y));
 
                 //3. 배열 범위 구하기
                 minX = Math.min(minX, x);
                 maxX = Math.max(maxX,x);
                 minY = Math.min(minY,y);
                 maxY = Math.max(maxY,y);
-                list.add(new Node(x,y));
             }
         }
-        System.out.println(minX+" "+maxX + " " +minY+" "+maxY);
+        // System.out.println(minX+" "+maxX + " " +minY+" "+maxY);
+
+        //배열 크기 재구성
+        int height= maxY-minY+1;
+        int width= maxX-minX+1;
+
+        //미리 . 으로 채워놓기
+        answer= new String[height];
+        StringBuilder sb= new StringBuilder();
+        for(int i=0; i<width; i++){
+            sb.append(".");
+        }
+
+        Arrays.fill(answer, sb.toString());
+
+        int nx, ny;
+        for(Node node: set){
+
+            ny= maxY-node.y;
+            nx= node.x-minX;
+
+            answer[ny]= answer[ny].substring(0, nx) + "*" + answer[ny].substring(nx+1); // * 표시
+        }
         return answer;
     }
     class Node{
