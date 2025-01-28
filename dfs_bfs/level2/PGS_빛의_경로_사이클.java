@@ -1,73 +1,59 @@
 import java.util.*;
 
 class Solution {
-
-    public int[][] visited;
-
-    public ArrayList<Integer> ans = new ArrayList<>();
-
-    public int w,h;
-
     public int[] solution(String[] grid) {
+        int rowLen = grid.length;
+        int colLen = grid[0].length();
 
-        visited = new int[grid.length][grid[0].length()];
+        boolean[][][] visited = new boolean[rowLen][colLen][4]; // 4 방향 (0: 위, 1: 아래, 2: 왼쪽, 3: 오른쪽)
+        List<Integer> cycleLengths = new ArrayList<>();
 
-        // 열 최대 길이
-        h = grid.length;
-        // 행 최대 길이
-        w = grid[0].length();
-
-        for(int i = 0; i < h; i++){
-            for(int j = 0; j < w; j++){
-                for(int d = 0; d < 4; d++){
-                    // 해당 위치에 해당방향에서 온적 있는지 체크
-                    if((visited[i][j] & (1<<d)) == 1<<d){
-                        continue;
+        // 네 방향(상, 하, 좌, 우)에 대해 모든 지점에서 시도
+        for (int r = 0; r < rowLen; r++) {
+            for (int c = 0; c < colLen; c++) {
+                for (int d = 0; d < 4; d++) {
+                    if (!visited[r][c][d]) {
+                        cycleLengths.add(findCycle(grid, r, c, d, visited));
                     }
-                    int cnt = bfs(i,j,d,grid);
-                    ans.add(cnt);
                 }
             }
         }
 
-        int[] answer = new int[ans.size()];
-
-        for(int i = 0; i < ans.size(); i++){
-            answer[i] = ans.get(i);
-        }
-
-        Arrays.sort(answer);
-
-        return answer;
+        Collections.sort(cycleLengths); // 오름차순 정렬
+        return cycleLengths.stream().mapToInt(i -> i).toArray();
     }
 
-    public int bfs(int x, int y, int d, String[] grid){
-        // 오른쪽으로 도는 구조(동,북,서,남)
-        int[] dirX = {0,1,0,-1};
-        int[] dirY = {1,0,-1,0};
+    private int findCycle(String[] grid, int r, int c, int dir, boolean[][][] visited) {
+        int rowLen = grid.length;
+        int colLen = grid[0].length();
+        int count = 0;
 
-        int cnt = 0;
+        while (!visited[r][c][dir]) {
+            visited[r][c][dir] = true; // 현재 위치와 방향 방문 처리
+            count++;
 
-        while(true){
-            // 왔던 곳에 같은 방향으로 오면 사이클
-            if((visited[x][y] & (1<<d)) == 1<<d){
-                break;
-            }
-            //거리 증가 및 방문처리
-            cnt++;
-            visited[x][y] |= (1<<d);
-
-            // 방향 회전
-            if(grid[x].charAt(y) == 'L'){
-                d = d == 0 ? 3 : d-1;
-            }else if(grid[x].charAt(y) == 'R'){
-                d = d == 3 ? 0 : d+1;
+            // 다음 위치 및 방향 결정
+            if (grid[r].charAt(c) == 'L') {
+                dir = turnLeft(dir);
+            } else if (grid[r].charAt(c) == 'R') {
+                dir = turnRight(dir);
             }
 
-            x = (x + dirX[d] + h) % h;
-            y = (y + dirY[d] + w) % w;
+            // 다음 위치 이동 (테두리를 넘으면 반대편으로 이동)
+            if (dir == 0) r = (r - 1 + rowLen) % rowLen; // 위쪽 이동
+            else if (dir == 1) r = (r + 1) % rowLen; // 아래쪽 이동
+            else if (dir == 2) c = (c - 1 + colLen) % colLen; // 왼쪽 이동
+            else if (dir == 3) c = (c + 1) % colLen; // 오른쪽 이동
         }
 
-        return cnt;
+        return count;
+    }
+
+    private int turnLeft(int dir) {
+        return (dir + 3) % 4; // 좌회전
+    }
+
+    private int turnRight(int dir) {
+        return (dir + 1) % 4; // 우회전
     }
 }
