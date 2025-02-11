@@ -1,7 +1,3 @@
-package BOJ._3_Gold;
-
-//[250210] 🔍📌
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -41,7 +37,6 @@ public class _4485_녹색_옷_입은_애가_젤다지 {
 //            System.out.println(Arrays.deepToString(dist));
             sb.append("Problem "+idx+": "+dist[N-1][N-1]+"\n");
             idx++;
-//            System.out.println(dist[N - 1][N - 1]);
         }
         System.out.println(sb);
     }
@@ -68,7 +63,7 @@ public class _4485_녹색_옷_입은_애가_젤다지 {
                     continue;
                 }
 
-                if(dist[nx][ny] < node.cost + arr[nx][ny]){
+                if(dist[nx][ny] <= node.cost + arr[nx][ny]){
                     continue;
                 }
                 pq.offer(new Node(nx,ny,node.cost+arr[nx][ny]));
