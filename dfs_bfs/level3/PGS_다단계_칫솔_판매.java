@@ -3,54 +3,56 @@ package dfs_bfs.level3;
 import java.util.*;
 
 public class PGS_다단계_칫솔_판매 {
-	Map<String, String> relations = new HashMap<>();
-	Map<String, Integer> moneys = new HashMap<>();
-	public int[] solution(String[] enroll, String[] referral, String[] seller, int[] amounts) {
-		int n = enroll.length;
-		for (int i = 0; i < n; i++) {
-			String name = enroll[i];
-			String parent = referral[i];
-			relations.put(name, parent);
-			moneys.put(name, 0);
-		}
-		relations.put("-", null);
-		moneys.put("-", 0);
-
-		int m = seller.length;
-		for (int i = 0; i < m; i++) {
-			String name = seller[i];
-			int amount = amounts[i];
-			calc(name, amount);
+	class Person {
+		String name = null;
+		Person parent = null;
+		int money = 0;
+		Person(String name, Person parent) {
+			this.name = name;
+			this.parent = parent;
 		}
 
+		void setMoney(int money) {
+			if (money == 0) return;
+
+			int parentMoney = (int)(money * 0.1);
+			this.money += (money - parentMoney);
+			if (parent != null) {
+				this.parent.setMoney(parentMoney);
+			}
+		}
+	}
+	public int[] solution(String[] enrolls, String[] referrals, String[] sellers, int[] amounts) {
+		int n = enrolls.length;
 		int[] answer = new int[n];
+
+		Map<String, Person> relations = new HashMap<>();
+		for (String enroll : enrolls) {
+			relations.put(enroll, new Person(enroll, null));
+		}
+
+		for (int i = 0; i < n; i++) {
+			String enroll = enrolls[i];
+			String referral = referrals[i];
+
+			if (!referral.equals("-")) {
+				// 기존 객체를 연결해서 부모, 조부모 ... root 까지 객체 연결하기
+				relations.get(enroll).parent = relations.get(referral);
+			}
+		}
+
+		int m = sellers.length;
+		for (int i = 0; i < m; i++) {
+			Person seller = relations.get(sellers[i]);
+			int money = amounts[i] * 100;
+			seller.setMoney(money);
+		}
+
 		int index = 0;
-		for (String name : enroll) {
-			answer[index++] = moneys.get(name);
+		for (String enroll : enrolls) {
+			answer[index++] = relations.get(enroll).money;
 		}
 
 		return answer;
-	}
-
-	public void calc(String seller, int amount) {
-		int money = amount * 100;
-
-		Queue<String> queue = new LinkedList<>();
-		queue.offer(seller);
-		moneys.put(seller, moneys.get(seller) + money);
-
-		while(!queue.isEmpty()) {
-			if (money == 0) break;
-			String person = queue.poll();
-
-			money = (int)(money * 0.1);
-			moneys.put(person, moneys.get(person) - money);
-
-			String parent = relations.getOrDefault(person, null);
-			if (parent != null) {
-				moneys.put(parent, moneys.get(parent) + money);
-				queue.offer(parent);
-			}
-		}
 	}
 }
