@@ -1,4 +1,4 @@
-package floyd_warshall.level2;
+package 최단거리.floyd_warshall.level2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
