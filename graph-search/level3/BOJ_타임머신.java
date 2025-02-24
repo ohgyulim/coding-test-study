@@ -46,20 +46,23 @@ public class _11657_타임머신 {
         dist[start] = 0;
 
         // N번 반복
-        for(int i=1; i<=N; i++){
-            for(Node x : list[i]){
-                int target = x.num;
-                //본인이 초기화 안되면 스킵
-                if(dist[i] == Integer.MAX_VALUE){
-                    break;
-                }
-                // 기존 값보다 거리가 짧은 경우
-                if(dist[target] > dist[i] + x.edge){
-                    //만일, N번째에도 값이 갱신되면 음수 순환 존재하는 것
-                    if(i==N){
-                        return true;
+        // N-1번이 아닌, N번째에 값이 갱신되면 음수 순환 존재 판단
+        for(int i=1; i<=N; i++) {
+            for (int j = 1; j <= N; j++) {
+                for (Node x : list[j]) {
+                    int target = x.num;
+                    //본인이 초기화 안되면 스킵
+                    if (dist[j] == Integer.MAX_VALUE) {
+                        break;
                     }
-                    dist[target] = dist[i] + x.edge;
+                    // 기존 값보다 거리가 짧은 경우
+                    if (dist[target] > dist[j] + x.edge) {
+                        //만일, N번째에도 값이 갱신되면 음수 순환 존재하는 것
+                        if (i == N) {
+                            return true;
+                        }
+                        dist[target] = dist[j] + x.edge;
+                    }
                 }
             }
         }
