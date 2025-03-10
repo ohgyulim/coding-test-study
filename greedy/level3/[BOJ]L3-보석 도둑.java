@@ -21,7 +21,9 @@ public class Main {
         for (int i = 0; i < K; i++) {
             bags[i] = Integer.parseInt(br.readLine());
         }
+        //보석 무게로 오름차슈ㅜ
         Arrays.sort(jewels, Comparator.comparingInt(j -> j.weight));
+        //가방 무게로 오름차순
         Arrays.sort(bags);
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
@@ -30,6 +32,7 @@ public class Main {
         int index = 0;
 
         for (int bag : bags) {
+            // 현재 가방의 무게를 초과하지 않는 보석들을 우선순위 큐에 추가
             while (index < N && jewels[index].weight <= bag) {
                 pq.offer(jewels[index].value);
                 index++;
