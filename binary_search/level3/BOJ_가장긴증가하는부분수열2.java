@@ -1,4 +1,4 @@
-package binary_search;
+package binary_search.level3;
 
 import java.io.*;
 
