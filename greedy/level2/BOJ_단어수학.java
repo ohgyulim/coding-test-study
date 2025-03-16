@@ -2,7 +2,7 @@ package greedy.level2;
 
 import java.io.*;
 import java.util.*;
-public class Main {
+public class BOJ_단어수학 {
 
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
