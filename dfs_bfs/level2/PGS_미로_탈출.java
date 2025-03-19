@@ -39,7 +39,6 @@ public class 미로_탈출 {
                 }
             }
         }
-
         // System.out.println(Arrays.deepToString(arr));
 
         distLever = findTarget(startX,startY, 'L');
