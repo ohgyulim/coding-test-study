@@ -74,3 +74,4 @@ public class Main {
         System.out.println(leftArm + " " + rightArm + " " + waist + " " + leftLeg + " " + rightLeg);
     }
 }
+1
