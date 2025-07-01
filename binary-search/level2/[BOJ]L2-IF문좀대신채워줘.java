@@ -38,6 +38,5 @@ class Main{
             sb.append(map.get(arr[answer])+"\n");
         }
         System.out.println(sb.toString().trim());
-
     }
 }
